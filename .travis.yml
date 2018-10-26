@@ -4,9 +4,15 @@ sudo: false
 matrix:
   include:
     - go: 1.6
-
+    - go: tip
+before_install:
+  - go get github.com/mattn/goveralls
 script:
   - go get -t -v ./...
   - diff -u <(echo -n) <(gofmt -d .)
   - go vet $(go list ./... | grep -v /vendor/)
-  - go test -v ./...
+  - go test -v -covermode=count -coverprofile=coverage.out
+  - $HOME/gopath/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN
+env:
+  global:
+    secure: "bMus5jjN/mVrOdKAJIOCAeyISc95p1rTsM66U+GtM7ra64jDWmFGGYQm5tjF3m/oRqQg+x77kzdVK6I8aSi636FKwBXsZBSy/Ht9tLHbNBh7gaIPVn00HP7Pd8K1uLsIjdCozyYMuInxrmUPJ2xMdu5ucGyj+72KTL7oeGCAcGRPLWUek+YV/7diVHrbPLbQW+47LtKq6sqsMoCjhLqAW2MRgCoJDQFRUaqybQFeMTPxtH6y/0SYz88NGyTrAPNEj9g1Aa3vXE7I2FZtPIUnpF4qXsM0VJIdDi31lF19BTLVPwmHxySnqXj2nLMqjKn0dZpeN6UqbGyM7VP9My3jMehMTPHjFDZac7yiFXALbxEoO1qlIrmks/sVR2Yr9d8L/HfFWG8V5KibAV4+jCcQrUAvqgz7jowCLeWoEj/EJ6L2FRhXdbqoaV8lZA7E/OAPtcgjCKjPXMIvdX+R4uomHignWZLQSbLyBb1nnZM5LEZ2os2PFVuUyr9kGXiWh9pMlpaZ3rEqAsAPvs+ypRMj78hRhQHr1lM1t2Yd7Jb1lGFJFOomeoOR7Kgey12tGvbJ97pwretqHHtnGMbJoX0Wjs4C69lPHa+kQ3cbRHw+/6O3ZAYMbRO3Gt3oTzjxEMGxv4OJxRAOEcpGAwhk9ezFBKLxpKoWVNzzxVWHe9y5WpU="
