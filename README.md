@@ -3,6 +3,11 @@ gobatcher
 
 `gobatcher` is a light-weighted golang library for batch, which operates the function on the given parameter list concurrently. It fails once any execution returns error.
 
+## Install
+```shell
+go get -u github.com/m3ngyang/gobatcher
+```
+
 ## How to use
 Here comes an easy example.
 
