@@ -1,5 +1,5 @@
-gobatcher
-===
+# gobatcher
+[![Build Status](https://travis-ci.org/m3ngyang/gobatcher.svg?branch=master)](https://travis-ci.org/m3ngyang/gobatcher)
 
 `gobatcher` is a light-weighted golang library for batch, which operates the function on the given parameter list concurrently. It fails once any execution returns error.
 
