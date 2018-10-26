@@ -14,6 +14,10 @@ func echoString(str string) error {
 }
 
 func addOne(num int) (int, error) {
+	return num + 1, nil
+}
+
+func addOneErr(num int) (int, error) {
 	return num + 1, errors.New("testerror")
 }
 
@@ -35,7 +39,7 @@ func TestRunEchoString(t *testing.T) {
 
 func TestRunAddOne(t *testing.T) {
 	nums := []int{1, 2, 3}
-	goBatcher := New(addOne, nums, 2)
+	goBatcher := New(addOneErr, nums, 2)
 	err := goBatcher.Run()
 	assert.EqualError(t, err, "testerror", "Err should be testerror")
 }
@@ -47,4 +51,19 @@ func TestRunObjFunc(t *testing.T) {
 	goBatcher := New(to.printStr, strs, 2)
 	err := goBatcher.Run()
 	assert.NoError(t, err, "Err should be nil")
+}
+
+func TestPanic(t *testing.T) {
+	funtion := "func"
+	params := []string{"Hello", "World", "!"}
+	assert.PanicsWithValue(t, errArgNotFunc, func() { New(funtion, params, 1) })
+	assert.PanicsWithValue(t, errArgNotSlice, func() { New(echoString, params[0], 1) })
+	assert.PanicsWithValue(t, errArgNotPostive, func() { New(echoString, params, -1) })
+}
+
+func TestDefaultParam(t *testing.T) {
+	nums := []interface{}{nil}
+	goBatcher := New(addOne, nums, 2)
+	err := goBatcher.Run()
+	assert.Nil(t, err)
 }
