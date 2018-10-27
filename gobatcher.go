@@ -11,7 +11,7 @@ import (
 var (
 	errArgNotFunc    = errors.New("Function Arg is Not a function type")
 	errArgNotSlice   = errors.New("Parameters Arg is Not a slice type")
-	errArgNotPostive = errors.New("Concurrency Arg is Not a postive int")
+	errArgNotPostive = errors.New("Concurrency Arg is Not a positive int")
 )
 
 // GoBatcher is a batcher that operates the same func on given arg set

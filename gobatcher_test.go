@@ -54,9 +54,9 @@ func TestRunObjFunc(t *testing.T) {
 }
 
 func TestPanic(t *testing.T) {
-	funtion := "func"
+	function := "func"
 	params := []string{"Hello", "World", "!"}
-	assert.PanicsWithValue(t, errArgNotFunc, func() { New(funtion, params, 1) })
+	assert.PanicsWithValue(t, errArgNotFunc, func() { New(function, params, 1) })
 	assert.PanicsWithValue(t, errArgNotSlice, func() { New(echoString, params[0], 1) })
 	assert.PanicsWithValue(t, errArgNotPostive, func() { New(echoString, params, -1) })
 }
